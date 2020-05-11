@@ -4,7 +4,9 @@
 
 int main(){
     char palavra[6];
-    scanf("%s",palavra);
-    printf("%d\n",gerarKey(palavra,5));
+    int qtdPalavras;
+    hash* anagramHash;
+    scanf("%d",&qtdPalavras);
+    anagramHash = criarHash(qtdPalavras);
     return 0;
 }

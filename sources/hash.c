@@ -11,3 +11,9 @@ unsigned int gerarKey(char palavra[],int size){
     }
     return key;
 }
+
+hash* criarHash(int tamanho){
+    hash* newHash = (hash*)malloc(sizeof(hash));
+    newHash->tabela = (Lista*)malloc(tamanho*sizeof(Lista*));
+    return newHash;
+}
