@@ -3,10 +3,12 @@
 #include "sources/hash.h"
 
 int main(){
-    char palavra[6];
     int qtdPalavras;
+    FILE* arq;
     hash* anagramHash;
-    scanf("%d",&qtdPalavras);
-    anagramHash = criarHash(qtdPalavras);
+    //scanf("%d",&qtdPalavras);
+    char palavra[] = "zzazz";
+    anagramHash = criarHash(126);
+    inserir(anagramHash,palavra);
     return 0;
 }

@@ -3,9 +3,15 @@
 #include "lista.h"
 typedef struct hash{
     int tamanho;
-    Lista* tabela;
+    Lista** tabela;
 }hash;
 
-unsigned int gerarKey(char palavra[],int size);
+typedef struct no{
+    char* palavra;
+    unsigned long int key;
+}no;
+
+unsigned long int gerarKey(char palavra[],int size);
 hash* criarHash(int tamanho);
+void inserir(hash* tempHash,char palavra[]);
 #endif
