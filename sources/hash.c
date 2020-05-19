@@ -62,7 +62,7 @@ int getKey(hash* tHash,char palavra[]){
 	sort(palavra,sorted,n);
 	for(int i=0;i<tamanho;i++){
 		c = sorted[i]-97;
-		key += comb(n,k)-comb(n-c+last,k);
+		key += tHash->combinacoes[n][k] - tHash->combinacoes[n-c+last][k];
 		n-= c-last;
 		k--;
 		last = c;
