@@ -4,7 +4,6 @@
 
 typedef struct no{
     char* palavra;
-    int key;
     struct no *prox;
 }no;
 typedef struct hash{
@@ -12,10 +11,10 @@ typedef struct hash{
     int n;
     int k;
     int** combinacoes;
-    no* tabela;
+    no** tabela;
 }hash;
 
 hash* criarHash(int n, int k);
 int getKey(hash* tHash,char palavra[]);
-int inserir(hash* tHash,char palavra[]);
+int inserir(hash* tHash,char palavra[], int tamanhoPalavra);
 #endif

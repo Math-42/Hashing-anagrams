@@ -26,7 +26,7 @@ hash* criarHash(int n, int k){
             newHash->combinacoes[i][j] = comb(i,j);
         }
     }
-    newHash->tabela = (no*)malloc(newHash->combinacoes[k][n] *sizeof(no));
+    newHash->tabela = (no**)malloc(newHash->combinacoes[k][n] *sizeof(no*));
     newHash->tamanho = newHash->combinacoes[k][n];
     newHash->k = k;
     newHash->n = n;
@@ -54,7 +54,7 @@ void sort(char arquivo[],char sorted[],int tamanhoMax){
 
 int getKey(hash* tHash,char palavra[]){
     int tamanho = tHash->k;
-    char* sorted = (char*)malloc((tamanho)*sizeof(char));
+    char* sorted = (char*)malloc((tamanho+1)*sizeof(char));
 	int n = tHash->n;
 	int k = tamanho;
     int c,key,last;
@@ -69,4 +69,25 @@ int getKey(hash* tHash,char palavra[]){
 	}
     free(sorted);
 	return key;
+}
+
+int inserir(hash* tHash,char palavra[],int tamanhoPalavra){
+    int key = getKey(tHash,palavra);
+    no* elemento = (no*)malloc(sizeof(no));
+    elemento->palavra = (char*)malloc(tamanhoPalavra * sizeof(char));
+    int i=0;
+    while (palavra[i] != '\0'){
+        elemento->palavra[i] = palavra[i];
+        i++;
+    }
+    if(tHash->tabela[key] == NULL){
+        tHash->tabela[key] = elemento;
+        return 1;
+    }
+    no* temp = tHash->tabela[key];
+    while(temp->prox !=NULL){
+        temp = temp->prox;
+    }
+    temp->prox = elemento;
+    return 1;
 }
