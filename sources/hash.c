@@ -26,8 +26,8 @@ hash* criarHash(int n, int k){
             newHash->combinacoes[i][j] = comb(i,j);
         }
     }
-    newHash->tabela = (no**)malloc(newHash->combinacoes[k][n] *sizeof(no*));
-    newHash->tamanho = newHash->combinacoes[k][n];
+    newHash->tabela = (no**)malloc(newHash->combinacoes[n][k] *sizeof(no*));
+    newHash->tamanho = newHash->combinacoes[n][k];
     newHash->k = k;
     newHash->n = n;
     return newHash;
@@ -90,4 +90,23 @@ int inserir(hash* tHash,char palavra[],int tamanhoPalavra){
     }
     temp->prox = elemento;
     return 1;
+}
+
+void imprimir(hash* tHash){
+    no* temp;
+    int cont =0;
+    
+    for(int i=0; i<tHash->tamanho;i++){
+        //printf("%d",tHash->tamanho);
+        if(tHash->tabela[i] != NULL){
+            cont++;
+            temp = tHash->tabela[i];
+            while(temp !=NULL){
+                printf("%s ",temp->palavra);
+                temp = temp->prox;
+            }
+            printf("\n");          
+        }
+    }
+    printf("Grupos totais: %d\n",cont);
 }

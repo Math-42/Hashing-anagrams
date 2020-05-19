@@ -17,4 +17,5 @@ typedef struct hash{
 hash* criarHash(int n, int k);
 int getKey(hash* tHash,char palavra[]);
 int inserir(hash* tHash,char palavra[], int tamanhoPalavra);
+void imprimir(hash* tHash);
 #endif
