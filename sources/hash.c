@@ -1,30 +1,72 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include "hash.h"
 
-int primos[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
-
-unsigned long int gerarKey(char palavra[],int size){
-    unsigned long int key=0;
-    for(int i=0;i<size;i++){
-        key += (int)(palavra[i]) - 96;
-    }
-    return key;
+unsigned long factorial(unsigned long f)
+{
+    if ( f == 0 ) 
+        return 1;
+    return(f * factorial(f - 1));
 }
 
-hash* criarHash(int tamanho){
+int comb(int n,int r){
+	if(n ==0){
+		return 0;
+	}
+	return (int) (factorial(n+r-1)/
+	(factorial(n-1)*factorial((r))));
+}
+
+hash* criarHash(int n, int k){
     hash* newHash = (hash*)malloc(sizeof(hash));
-    newHash->tabela = (Lista**)malloc(tamanho*sizeof(Lista*));
-    newHash->tamanho = tamanho;
+    newHash->combinacoes = (int**)malloc((n+1)*sizeof(int*));
+    for(int i=0; i<=n;i++){
+        newHash->combinacoes[i] = (int*)malloc((k+1)*sizeof(int));
+        for(int j=0;j<=k;j++){
+            newHash->combinacoes[i][j] = comb(i,j);
+        }
+    }
+    newHash->tabela = (no*)malloc(newHash->combinacoes[k][n] *sizeof(no));
+    newHash->tamanho = newHash->combinacoes[k][n];
+    newHash->k = k;
+    newHash->n = n;
     return newHash;
 }
 
-void inserir(hash* tempHash,char palavra[]){
-    unsigned long int x = gerarKey(palavra,strlen(palavra));
-    printf("%ld\n",x-5);
-    if(tempHash->tabela[x-5] == NULL){
-        tempHash->tabela[x-5] = criarLista();
+void sort(char arquivo[],char sorted[],int tamanhoMax){
+    int* tempArray = (int*)malloc((tamanhoMax)*sizeof(int));
+    int i=0;
+    while(arquivo[i]!='\0'){
+        tempArray[(int)(arquivo[i])-97]++;
+        i++;
     }
-    inserirElemento(tempHash->tabela[x-5],palavra);
+    int j=0;
+    for(int i=0;i<tamanhoMax;i++){
+        if(tempArray[i]!=0){
+            while(tempArray[i]!=0){
+                sorted[j++] = i+97;
+                tempArray[i]--;
+            }
+        }
+    }
+    free(tempArray);
+}
+
+int getKey(hash* tHash,char palavra[]){
+    int tamanho = tHash->k;
+    char* sorted = (char*)malloc((tamanho)*sizeof(char));
+	int n = tHash->n;
+	int k = tamanho;
+    int c,key,last;
+    c = key = last = 0;
+	sort(palavra,sorted,n);
+	for(int i=0;i<tamanho;i++){
+		c = sorted[i]-97;
+		key += comb(n,k)-comb(n-c+last,k);
+		n-= c-last;
+		k--;
+		last = c;
+	}
+    free(sorted);
+	return key;
 }
