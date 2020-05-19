@@ -1,14 +1,23 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "sources/hash.h"
 
 int main(){
-    int qtdPalavras;
+    char nomeArquivo[100];
+    char palavra[6];
+
+    hash* newHash;
+    newHash = criarHash(9,5);
+
     FILE* arq;
-    hash* anagramHash;
-    //scanf("%d",&qtdPalavras);
-    char palavra[] = "zzazz";
-    anagramHash = criarHash(126);
-    inserir(anagramHash,palavra);
+    scanf("%s",nomeArquivo);
+    arq=fopen(nomeArquivo,"r");
+    
+    while(fscanf(arq,"%s",palavra)!= EOF){
+        inserir(newHash,palavra,5);
+    }
+    
+    imprimir(newHash);
+    liberarHash(newHash);
     return 0;
 }
