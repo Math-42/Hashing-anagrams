@@ -10,6 +10,7 @@ int main(int argc, char *argv[]){
         char* nomeArq = (argc>1) ? argv[1]:"example.txt";//
         int tamanhoPalavras = (argc>2) ? atoi(argv[2]): 5;
         int qtdPalavras = (argc>3) ?  atoi(argv[3]): 100;
+        int qtdLetras = (argc>4) ?  atoi(argv[4]): 9;
         palavra = (char*)malloc((tamanhoPalavras+1)*sizeof(char));
     //=========================
     //Execução
@@ -17,7 +18,7 @@ int main(int argc, char *argv[]){
         arq = fopen(nomeArq,"w");//abre o arquivo
         for(int i=0;i<qtdPalavras;i++){//repete "numero de palavras" vezes
             for(int j=0;j<tamanhoPalavras;j++){//cria cada letra da palavra
-                palavra[j] = (char) (rand()%26+97);//gera um numero aleatorio entre 0 e 25, e soma a 97, 97 = 'a' em asc
+                palavra[j] = (char) (rand()%qtdLetras+97);//gera um numero aleatorio entre 0 e 25, e soma a 97, 97 = 'a' em asc
             }
             fprintf(arq,"%s\n",palavra);//salva cada palavra
         }
