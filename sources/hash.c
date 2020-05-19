@@ -95,9 +95,7 @@ int inserir(hash* tHash,char palavra[],int tamanhoPalavra){
 void imprimir(hash* tHash){
     no* temp;
     int cont =0;
-    
     for(int i=0; i<tHash->tamanho;i++){
-        //printf("%d",tHash->tamanho);
         if(tHash->tabela[i] != NULL){
             cont++;
             temp = tHash->tabela[i];
@@ -109,4 +107,26 @@ void imprimir(hash* tHash){
         }
     }
     printf("Grupos totais: %d\n",cont);
+}
+
+void liberarHash(hash* tHash){
+    no* temp;
+    no* temp2;
+    for(int i=0; i<=tHash->n;i++){
+        free(tHash->combinacoes[i]);
+    }
+    free(tHash->combinacoes);
+    for(int i=0; i<tHash->tamanho;i++){
+        if(tHash->tabela[i] != NULL){
+            temp = tHash->tabela[i];
+            while(temp !=NULL){
+                temp2 = temp;
+                temp = temp->prox;
+                free(temp2->palavra);
+                free(temp2);
+            }    
+        }
+    }
+    free(tHash->tabela);
+    free(tHash);
 }
